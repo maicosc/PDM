@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvMinimo" />
+        app:layout_constraintTop_toBottomOf="@+id/etMin" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier"
@@ -34,20 +34,20 @@
         app:layout_constraintGuide_begin="20dp" />
 
     <EditText
-        android:id="@+id/tvMinimo"
+        android:id="@+id/etMin"
         android:layout_width="168dp"
         android:layout_height="51dp"
         android:ems="10"
         android:hint="1"
         android:inputType="number"
         app:layout_constraintBottom_toTopOf="@+id/tvResultado"
-        app:layout_constraintEnd_toStartOf="@+id/tvMaximo"
+        app:layout_constraintEnd_toStartOf="@+id/etMax"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/tvMaximo"
+        android:id="@+id/etMax"
         android:layout_width="168dp"
         android:layout_height="51dp"
         android:ems="10"
@@ -55,8 +55,8 @@
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tvMinimo"
-        app:layout_constraintTop_toTopOf="@+id/tvMinimo" />
+        app:layout_constraintStart_toEndOf="@+id/etMin"
+        app:layout_constraintTop_toTopOf="@+id/etMin" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier2"
