@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button button;
     EditText etPeso, etAltura;
+    ImageView iv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
         button = findViewById(R.id.button5);
         etAltura=findViewById(R.id.etAltura);
         etPeso=findViewById(R.id.etPeso);
+        iv= findViewById(R.id.imvPerfil);
+        iv.setImageDrawable(getDrawable(R.drawable.perfil));
+
         button.setOnClickListener( v -> {
             Intent intent = new Intent(this, ImcResultado.class);
             Bundle b = new Bundle();
