@@ -10,22 +10,25 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class TabuadaResultado extends AppCompatActivity {
+public class Tabuada extends AppCompatActivity {
 
-    TextView tv;
+    TextView tvTab, tvResult;
+    String resultado="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_tabuada_resultado);
-        tv = findViewById(R.id.tvResultado);
+        setContentView(R.layout.activity_tabuada);
         Intent i = getIntent();
         Bundle b = i.getExtras();
-        int num =b.getInt("num");
-        for(int a=0; a<11;a++){
+        int num = b.getInt("num");
+        tvTab = findViewById(R.id.tvTabuada);
+        tvResult = findViewById(R.id.tvResultado);
+        tvTab.setText("Tabuada do " +  num);
 
-            tv.setText(tv.getText()+ "\n"+a+" * "+num+" = "+a*num);
+        for (int a=0; a<11; a++){
+            resultado = resultado + a+" x "+num+ " = " + a*num+"\n";
+            tvResult.setText(resultado);
         }
-
     }
 }
