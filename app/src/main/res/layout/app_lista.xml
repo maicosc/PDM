@@ -6,9 +6,9 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/imgV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/imgApp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginStart="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,14 +17,14 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/tV"
-        android:layout_width="112dp"
-        android:layout_height="22dp"
+        android:id="@+id/tvApp"
+        android:layout_width="128dp"
+        android:layout_height="wrap_content"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toEndOf="@+id/imgV"
+        app:layout_constraintStart_toEndOf="@+id/imgApp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.504" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,19 +1,24 @@
 package com.example.aula2_11082025;
 
+import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     ListView listView;
-    PlanetaController planetaController;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,13 +27,26 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         listView = findViewById(R.id.listView);
-        planetaController = new PlanetaController();
+        PackageManager packageManager = getPackageManager();
+        List<ApplicationInfo> packageInfoList = packageManager.getInstalledApplications(PackageManager.GET_META_DATA);
+        AppAdapter appAdapter = new AppAdapter(this,R.layout.app_lista, packageInfoList);
+        listView.setAdapter(appAdapter);
 
-        PlanetaAdapter adapter = new PlanetaAdapter(
-                this,
-                R.layout.item_lista,
-                planetaController.getPlaneta());
-        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ApplicationInfo applicationInfo = (ApplicationInfo) parent.getItemAtPosition(position);
+                String packageName = applicationInfo.packageName;
+                Toast.makeText(MainActivity.this, "", Toast.LENGTH_SHORT).show();
 
+                Intent intent = packageManager.getLaunchIntentForPackage(packageName);
+                if (intent != null) {
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(MainActivity.this, "Não foi possível abrir o aplicativo", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
+
 }
