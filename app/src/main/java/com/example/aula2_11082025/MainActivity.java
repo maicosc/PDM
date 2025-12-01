@@ -1,6 +1,7 @@
 package com.example.aula2_11082025;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -21,11 +22,11 @@ public class MainActivity extends AppCompatActivity {
 
     SQLiteDatabase db;
 
-    Button button;
+    Button butao;
 
     ListView l;
 
-    ArrayList<String> notas = new ArrayList<>();
+    ArrayList<String> nts = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,32 +34,42 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         l = findViewById(R.id.lista);
-        button = findViewById(R.id.button);
-        button.setOnClickListener(v -> {
-            EditText edText = findViewById(R.id.editText);
-            String texto = edText.getText().toString();
-            ContentValues cv = new ContentValues();
-            cv.put("titulo", "Nota do Usuario");
-            cv.put("texto", texto);
-            db.insert("notas", null, cv);
+        butao = findViewById(R.id.button);
+        EditText edText = findViewById(R.id.editText);
 
-
-            notas.add(texto);
-
-        });
         db = openOrCreateDatabase("app_database", MODE_PRIVATE, null);
         db.execSQL("CREATE TABLE IF NOT EXISTS notas (id INTEGER PRIMARY KEY AUTOINCREMENT,"+
                 "titulo VARCHAR, texto TEXT)");
-        ContentValues values = new ContentValues();
-        values.put("titulo", "Mi primera nota");
-        values.put("texto", "Este é o texto da nota");
-        db.insert("notas", null,values);
+        carregarListagem();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter(getApplicationContext(),
+        butao.setOnClickListener(v -> {
+
+            String txt = edText.getText().toString();
+            ContentValues cv = new ContentValues();
+            cv.put("titulo", "Notas Usuario");
+            cv.put("texto", txt);
+            db.insert("notas", null, cv);
+            carregarListagem();
+
+        });
+
+    }
+    public void carregarListagem(){
+        ArrayList<String> textos = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT * FROM notas", null);
+        cursor.moveToFirst();
+
+        while (!cursor.isAfterLast()){
+            String text= cursor.getString(cursor.getColumnIndexOrThrow("texto"));
+            textos.add(text);
+            cursor.moveToNext();
+        }
+
+        ArrayAdapter<String> textAdapter = new ArrayAdapter<>(
+                getApplicationContext(),
                 android.R.layout.simple_list_item_1,
-                android.R.id.text1,
-                notas);
-        l.setAdapter(adapter);
-
+                textos
+        );
+        l.setAdapter(textAdapter);
     }
 }
